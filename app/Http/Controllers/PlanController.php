@@ -26,11 +26,8 @@ class PlanController extends Controller
         $plan->calidad = $request->calidad;
         $plan->tipo_cuenta = $request->tipo_cuenta;
         $plan->precio = $request->precio;
-        if($request->precio_revendedor == null){
-            $plan->precio_revendedor = $request->precio;
-        }else{
-            $plan->precio_revendedor = $request->precio_revendedor;
-        }        
+        $plan->precio_revendedor = $request->precio_revendedor;
+        $plan->precio_distribuidor = $request->precio_distribuidor;     
         $plan->plataforma_id = $request->plataforma_id;
         $plan->descripcion = $request->descripcion;
         $plan->save();
@@ -46,6 +43,7 @@ class PlanController extends Controller
         $plan->tipo_cuenta = $request->tipo_cuenta;
         $plan->precio = $request->precio;
         $plan->precio_revendedor = $request->precio_revendedor;
+        $plan->precio_distribuidor = $request->precio_distribuidor;   
         $plan->plataforma_id = $request->plataforma_id;
         $plan->descripcion = $request->descripcion;
         $plan->save();

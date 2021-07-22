@@ -34,17 +34,20 @@ class ComprasController extends Controller
         return $suscripcion;
     }
 
-    public function comprarConSaldo(Request $request, $id){
+    public function comprarConSaldo(Request $request, $id)
+    {
         $usuario = $request->user();
         $plan = Plan::findOrFail($id);
         
         $precio_plan;
         if ($usuario->tipo_usuario == 'revendedor' && $plan->precio_revendedor!=null) {
             $precio_plan = $plan->precio_revendedor;
+        } elseif ($usuario->tipo_usuario == 'distribuidor' && $plan->precio_distribuidor!=null) {
+            $precio_plan = $plan->precio_distribuidor;
         } else {
             $precio_plan = $plan->precio;
         }
-        if($usuario->saldo < $precio_plan){
+        if ($usuario->saldo < $precio_plan) {
             $saldo_insuficiente = "saldo insuficiente";
             return response()->json($saldo_insuficiente, 400);
         }
@@ -57,7 +60,7 @@ class ComprasController extends Controller
                 break;
             }
         }
-        if($idSuscripcion == ""){
+        if ($idSuscripcion == "") {
             return response()->json("suscripción no disponible", 400);
         }
 
@@ -103,6 +106,8 @@ class ComprasController extends Controller
         $solicitudPago->referenceCode = date('Y-m-d H:i:s')."U".$usuario->id."P".$plan->id."S".$idSuscripcion;
         if ($usuario->tipo_usuario == 'revendedor' && $plan->precio_revendedor!=null) {
             $solicitudPago->amount = $plan->precio_revendedor;
+        } else if ($usuario->tipo_usuario == 'distribuidor' && $plan->precio_distribuidor!=null) {
+            $solicitudPago->amount = $plan->precio_distribuidor;
         } else {
             $solicitudPago->amount = $plan->precio;
         }

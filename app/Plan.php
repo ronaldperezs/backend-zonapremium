@@ -8,7 +8,8 @@ class Plan extends Model
 {
     protected $table = 'planes';
     protected $fillable = [
-        'nombre', 'duracion', 'calidad', 'tipo_cuenta', 'descripcion', 'precio','precio_revendedor','plataforma_id'
+        'nombre', 'duracion', 'calidad', 'tipo_cuenta', 'descripcion', 'precio','precio_revendedor','precio_distribuidor',
+        'plataforma_id'
     ];
 
     public function plataforma()
